@@ -6,8 +6,8 @@ export default function ErrorPage() {
 
   return (
     <div id="error-page">
-      <h1>糟糕！</h1>
-      <p>页面好像出现了一些问题</p>
+      <h1>Oops!</h1>
+      <p>It seems there is a problem with the page.</p>
       <p>
         <i>{error.statusText || error.message}</i>
       </p>

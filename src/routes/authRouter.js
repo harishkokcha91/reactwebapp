@@ -9,11 +9,11 @@ const AuthRouter = ({ children }) => {
   const route = searchRoute(pathname, routes);
   const roles = route?.meta?.roles;
 
-  // 登录状态
+  // Login status
   if (isLogin) {
     return children;
   } else {
-    // 未登录状态，不需要权限，比如登录页
+    //Not logged in, no permissions required, such as login page
     if (roles?.length === 0) {
       return children;
     }

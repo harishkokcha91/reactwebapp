@@ -4,107 +4,95 @@ import { fetchUploadList } from "@/services/websit";
 import { getToken } from "@/utils/request";
 import { formatDate } from "@/utils/utils";
 import { UploadOutlined } from "@ant-design/icons";
-import { Select } from "antd";
-import { Form } from "antd";
-import { Button, Card, message, Table, Upload, Modal } from "antd";
+import { Select, Form, Button, Card, message, Table, Upload, Modal } from "antd";
 import { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-const { confirm } = Modal
+const { confirm } = Modal;
 
 export default function FileAdmin() {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const [uploadFileType, setUploadFileType] = useState(2)
+  const [uploadFileType, setUploadFileType] = useState(2);
   const [paginationConfig, setPaginationConfig] = useState({
     current: 1,
     pageSize: 10,
     showSizeChanger: true,
-    showTotal: (total) => (
-      <>
-        <p>共{total}条数据</p>
-      </>
-    ),
+    showTotal: (total) => <p>Total {total} pieces of data</p>,
   });
 
   const fileUploadTypeOptions = [
-    { value: 2, label: 'oss上传' },
-    { value: 1, label: '本地上传' },
-  ]
+    { value: 2, label: 'OSS Upload' },
+    { value: 1, label: 'Local Upload' },
+  ];
 
   const byte2kb = (val) => (val / 1024).toFixed(2);
-  // 设置文件地址
-  const setFileUlr = (record) => {
-    // oss地址
-    if (record?.type === 2) {
-      return record.filePath
-    } else {
-      // 本地上传地址
-      return `${ApiUrl.ManApiUrl}${record.filePath.replace("public", "")}`
-    }
-  }
+
+  const setFileUrl = (record) => {
+    return record?.type === 2
+      ? record.filePath
+      : `${ApiUrl.ManApiUrl}${record.filePath.replace("public", "")}`;
+  };
 
   const columns = [
     {
-      title: "文件名",
+      title: "File Name",
       dataIndex: "name",
     },
     {
-      title: "预览",
-      with: 100,
+      title: "Preview",
+      width: 100,
       render: (text, record) => (
         <div>
-          <img
-            alt=""
-            style={{ width: 50 }}
-            src={setFileUlr(record)}
-          />
+          <img alt="" style={{ width: 50 }} src={setFileUrl(record)} />
         </div>
       ),
     },
     {
-      title: "文件路径",
-      with: 500,
+      title: "File Path",
+      width: 500,
       ellipsis: true,
       render: (text, record) => (
         <CopyToClipboard
-          text={setFileUlr(record)}
-          onCopy={() => message.success("复制文本成功！")}
+          text={setFileUrl(record)}
+          onCopy={() => message.success("Text copied successfully!")}
         >
-          <span style={{ cursor: "pointer" }}>{setFileUlr(record)}</span>
+          <span style={{ cursor: "pointer" }}>{setFileUrl(record)}</span>
         </CopyToClipboard>
       ),
     },
     {
-      title: "文件大小",
+      title: "File Size",
       dataIndex: "size",
       render: (text) => `${byte2kb(text)}kb`,
     },
     {
-      title: "上传时间",
+      title: "Upload Date",
       dataIndex: "upload_date",
       render: (text) => <span>{formatDate(text)}</span>,
     },
     {
-      title: '操作',
+      title: 'Actions',
       key: 'operation',
       width: 150,
-      render: (text, record) => <div>
-        <Button onClick={() => handleDeleteFile(record.name, record.type, record._id)}>删除</Button>
-      </div>,
+      render: (text, record) => (
+        <div>
+          <Button onClick={() => handleDeleteFile(record.name, record.type, record._id)}>Delete</Button>
+        </div>
+      ),
     },
   ];
 
   useEffect(() => {
-    getTableHandle(paginationConfig);
+    fetchTableData(paginationConfig);
   }, [paginationConfig]);
 
-  const getTableHandle = async (p) => {
+  const fetchTableData = async (pagination) => {
     setTableLoading(true);
     const params = {
-      pageNo: p.current,
-      pageSize: p.pageSize,
+      pageNo: pagination.current,
+      pageSize: pagination.pageSize,
     };
     const res = await fetchUploadList(params);
     setTableLoading(false);
@@ -122,7 +110,7 @@ export default function FileAdmin() {
     });
   };
 
-  const UploadProps = {
+  const uploadProps = {
     name: 'file',
     maxCount: 1,
     action: uploadFileType === 1 ? `${ApiUrl.ManApiUrl}/file/upload` : `${ApiUrl.ManApiUrl}/oss/upload`,
@@ -134,50 +122,48 @@ export default function FileAdmin() {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        message.success('上传文件成功！');
-        getTableHandle(paginationConfig)
+        message.success('File uploaded successfully!');
+        fetchTableData(paginationConfig);
       } else if (info.file.status === 'error') {
-        message.error('上传文件失败');
+        message.error('File upload failed');
       }
     },
   };
 
-  // 切换文件上传类型
   const handleSelectChange = (value) => {
-    setUploadFileType(value)
+    setUploadFileType(value);
   };
 
   const handleDeleteFile = async (fileName, type, fileId) => {
-    console.log('fileName', fileName)
     confirm({
-      title: "警告！",
-      content: "确定要删除此文章吗？",
-      okText: "确定",
+      title: "Warning!",
+      content: "Are you sure you want to delete this file?",
+      okText: "Yes",
       okType: "danger",
-      cancelText: "取消",
+      cancelText: "No",
       async onOk() {
-        let res = null
+        let res = null;
         if (type === 2) {
-          res = await deleteOssFile(fileName, fileId)
+          res = await deleteOssFile(fileName, fileId);
         } else {
-          res = await deleteFile(fileId)
+          res = await deleteFile(fileId);
         }
         if (res.code === 200) {
-          message.success("删除文件成功！");
-          getTableHandle(paginationConfig)
+          message.success("File deleted successfully!");
+          fetchTableData(paginationConfig);
         } else {
-          message.error("删除失败");
+          message.error("Failed to delete file");
         }
       },
-      onCancel() { },
+      onCancel() {},
     });
-  }
+  };
 
   return (
     <Card>
       <div style={{ marginBottom: '6px' }}>
         <Form layout="inline">
-          <Form.Item label="上传类型">
+          <Form.Item label="Upload Type">
             <Select
               defaultValue={uploadFileType}
               options={fileUploadTypeOptions}
@@ -185,13 +171,11 @@ export default function FileAdmin() {
             />
           </Form.Item>
           <Form.Item>
-            <Upload {...UploadProps}>
-              <Button icon={<UploadOutlined />}>上传文件</Button>
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined />}>Upload File</Button>
             </Upload>
           </Form.Item>
-
         </Form>
-
       </div>
       <Table
         rowKey={(record) => record._id}
@@ -200,7 +184,7 @@ export default function FileAdmin() {
         pagination={{ ...paginationConfig, total }}
         loading={tableLoading}
         onChange={handleTableChange}
-      ></Table>
+      />
     </Card>
   );
 }

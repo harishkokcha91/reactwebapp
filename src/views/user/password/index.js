@@ -14,9 +14,9 @@ export default function Password() {
     if (code === 200) {
       messageApi.open({
         type: 'success',
-        content: '修改密码成功！',
+        content: 'password has been updated!',
       })
-      // 移除token
+      // Remove token
       storage.remove('token')
 
       setTimeout(() => {
@@ -27,38 +27,38 @@ export default function Password() {
   };
 
   return (
-    <Card title='修改密码' bordered={false}>
+    <Card title='change Password' bordered={false}>
       {contextHolder}
       <Form labelCol={{ span: 2 }} onFinish={onFinish}>
         <Form.Item
           name='oldPassword'
-          label='原密码'
-          rules={[{ required: true, message: '请输入原密码' }]}
+          label='old password'
+          rules={[{ required: true, message: 'Please enter the original password' }]}
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
           name='newPassword'
-          label='新密码'
-          rules={[{ required: true, message: '请输入新密码' }]}
+          label='New Password'
+          rules={[{ required: true, message: 'Please enter a new password' }]}
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
           name='confirmPassword'
-          label='再次输入密码'
-          dependencies={['newPassword']} // 依赖新密码字段
+          label='Enter password again'
+          dependencies={['newPassword']} // Rely on new password field
           rules={[
             {
               required: true,
-              message: '请再次输入新密码!',
+              message: 'Please enter new password again!',
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue('newPassword') === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error('两次输入的密码不一致'));
+                return Promise.reject(new Error('The passwords entered twice are inconsistent'));
               },
             }),
           ]}
@@ -67,7 +67,7 @@ export default function Password() {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            确定
+          Sure
           </Button>
         </Form.Item>
       </Form>

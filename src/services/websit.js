@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 
 /**
- * 获取文件上传列表
+ * Get file upload list
  * @param {*} param0
  */
 export async function fetchUploadList({ pageNo = 1, pageSize = 10 } = {}) {
@@ -15,7 +15,7 @@ export async function fetchUploadList({ pageNo = 1, pageSize = 10 } = {}) {
 }
 
 /**
- * 获取访客列表
+ * Get visitor list
  * @param {*} param0
  */
 export async function fetchVisitorList({ pageNo = 1, pageSize = 10 } = {}) {
@@ -29,7 +29,7 @@ export async function fetchVisitorList({ pageNo = 1, pageSize = 10 } = {}) {
 }
 
 /**
- * 获取评论列表
+ * Get list of comments
  * @param {*} param0
  */
 export async function fetchCommentList({ pageNo = 1, pageSize = 10 } = {}) {
@@ -43,7 +43,7 @@ export async function fetchCommentList({ pageNo = 1, pageSize = 10 } = {}) {
 }
 
 /**
- * 删除评论
+ * Delete comment
  * @param {*} _id
  */
 export async function deleteCommentById(_id) {

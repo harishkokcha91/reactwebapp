@@ -5,7 +5,7 @@ import UserInfoForm from "./components/userInfoForm";
 
 export default function UserInfo(){
   return (
-   <Card title="用户信息" bordered={false}>
+   <Card title="User Info" bordered={false}>
     <Row>
       <Col span={12}>
         <UserInfoForm />

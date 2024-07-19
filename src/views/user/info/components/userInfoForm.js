@@ -19,7 +19,7 @@ const UserInfoForm = ({ onSubmit }) => {
       const data = await initUserInfo()
       if (data) {
         form.setFieldsValue(data ?? {})
-        // 展示图片
+        // Show pictures
         const {avatar_url} = data
         const fileList = [
           {
@@ -39,7 +39,7 @@ const UserInfoForm = ({ onSubmit }) => {
     console.log('values---', values)
     const data = await updateUserInfo(values)
     console.log('data update', data)
-    message.success('更新成功！')
+    message.success('update completed!')
     if (onSubmit) {
       onSubmit(values);
     }
@@ -74,33 +74,33 @@ const UserInfoForm = ({ onSubmit }) => {
       onFinish={handleSubmit}
     >
       <Form.Item
-        label="用户名称"
+        label="user name"
         name="name"
-        rules={[{ required: true, message: '请输入用户名称!' }]}
+        rules={[{ required: true, message: 'Please enter user name!' }]}
       >
         <Input prefix={<UserOutlined />} placeholder="Name" />
       </Form.Item>
 
       <Form.Item
-        label="昵称"
+        label="Nick name"
         name="nick_name"
       >
         <Input prefix={<UserOutlined />} placeholder="Nickname" />
       </Form.Item>
 
       <Form.Item
-        label="角色类型"
+        label="role type"
         name="user_type"
         initialValue={1}
       >
         <Radio.Group>
-          <Radio value={0}>超级管理员</Radio>
-          <Radio value={1}>其他</Radio>
+          <Radio value={0}>super administrator</Radio>
+          <Radio value={1}>other</Radio>
         </Radio.Group>
       </Form.Item>
 
       <Form.Item
-        label="头像"
+        label="avatar"
         name="avatar_url"
         getValueFromEvent={normFile}
       >
@@ -126,27 +126,27 @@ const UserInfoForm = ({ onSubmit }) => {
       </Form.Item>
 
       <Form.Item
-        label="签名"
+        label="sign"
         name="signature"
       >
         <Input.TextArea placeholder="Signature" />
       </Form.Item>
 
       <Form.Item
-        label="性别"
+        label="gender"
         name="gender"
         initialValue="other"
       >
         <Radio.Group>
-          <Radio value="male">男</Radio>
-          <Radio value="female">女</Radio>
-          <Radio value="other">其他</Radio>
+          <Radio value="male">Male</Radio>
+          <Radio value="female">Female</Radio>
+          <Radio value="other">other</Radio>
         </Radio.Group>
       </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          保存
+          Save
         </Button>
       </Form.Item>
     </Form>

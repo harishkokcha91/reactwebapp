@@ -9,22 +9,22 @@ const columns = [
     key: 'id',
   },
   {
-    title: '名称',
+    title: 'name',
     dataIndex: 'name',
     key: 'name',
   },
   {
-    title: '描述',
+    title: 'describe',
     dataIndex: 'description',
     key: 'description',
   },
   {
-    title: '操作',
+    title: 'operate',
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a>编辑</a>
-        <a>删除</a>
+        <a>Edit</a>
+        <a>Delete</a>
       </Space>
     ),
   },

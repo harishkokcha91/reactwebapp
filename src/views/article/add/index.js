@@ -20,35 +20,35 @@ const defaultFormValue = {
 };
 
 const toolbar = {
-  img: true, // 图片
-  link: true, // 链接
-  code: true, // 代码块
-  preview: true, // 预览
-  expand: true, // 全屏
-  undo: true, // 撤销
-  redo: true, // 重做
-  save: true, // 保存
-  subfield: true, // 单双栏模式
+  img: true, // Image
+  link: true, // Link
+  code: true, // Code block
+  preview: true, // Preview
+  expand: true, // Fullscreen
+  undo: true, // Undo
+  redo: true, // Redo
+  save: true, // Save
+  subfield: true, // Single/Double column mode
 };
 
-const AddArtile = () => {
+const AddArticle = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
   const editorRef = useRef(null);
-  const formRef = useRef(null)
+  const formRef = useRef(null);
   const uuid = searchParams.get("uuid");
-  const [uploadFileType, setUploadFileType] = useState(2)
+  const [uploadFileType, setUploadFileType] = useState(2);
 
-  // 切换文件上传类型
+  // Switch file upload type
   const handleSelectChange = (value) => {
-    setUploadFileType(value)
+    setUploadFileType(value);
   };
 
   const fileUploadTypeOptions = [
-    { value: 2, label: 'oss上传' },
-    { value: 1, label: '本地上传' },
-  ]
+    { value: 2, label: 'OSS Upload' },
+    { value: 1, label: 'Local Upload' },
+  ];
 
   useEffect(() => {
     fetchTags().then((res) => {
@@ -62,7 +62,7 @@ const AddArtile = () => {
     async function getArticleDetail() {
       if (uuid) {
         const res = await fetchArticleDetail(uuid);
-        setArticleDetail(res?.data || {})
+        setArticleDetail(res?.data || {});
       }
     }
     getArticleDetail();
@@ -75,8 +75,8 @@ const AddArtile = () => {
       private: data.private,
       type: data.type,
       markdown: data.markdown,
-    })
-  }
+    });
+  };
 
   const onFinish = (values) => {
     console.log("values--", values);
@@ -90,7 +90,7 @@ const AddArtile = () => {
       content,
       toc,
     };
-    // 文章简介
+    // Article excerpt
     const excerptStr = replaceHtml(content.slice(0, 200));
     params.excerpt =
       excerptStr.length > 137 ? `${excerptStr.slice(0, 137)}...` : excerptStr;
@@ -100,20 +100,20 @@ const AddArtile = () => {
 
   const requestSubmitHandle = (params) => {
     if (uuid) {
-      // 更新文章
+      // Update article
       updateArticle(uuid, params).then((res) => {
         if (res.code === 200) {
-          message.success("更新文章成功！");
+          message.success("Article updated successfully!");
           navigate("/article/list");
         } else {
-          message.error("更新文章失败！");
+          message.error("Failed to update article!");
         }
       });
     } else {
-      // 新增文章
+      // Add new article
       addArticle(params).then((res) => {
         if (res.code === 200) {
-          message.success("添加文章成功！");
+          message.success("Article added successfully!");
           navigate("/article/list");
         } else {
           message.error(res.msg);
@@ -122,31 +122,32 @@ const AddArtile = () => {
     }
   };
 
-  // 设置文件地址
-  const setFileUlr = (type, filePath = '') => {
-    // oss地址
+  // Set file URL
+  const setFileUrl = (type, filePath = '') => {
+    // OSS URL
     if (type === 2) {
-      return filePath
+      return filePath;
     } else {
-      // 本地上传地址
-      return `${ApiUrl.ManApiUrl}${filePath.replace("public", "")}`
+      // Local upload URL
+      return `${ApiUrl.ManApiUrl}${filePath.replace("public", "")}`;
     }
-  }
-  // 上传图片
+  };
+
+  // Upload image
   const addImg = ($file) => {
     const formData = new FormData();
     formData.append("file", $file);
-    let uploadFun = () => { }
+    let uploadFun = () => { };
     if (uploadFileType === 2) {
-      uploadFun = uploadOssFile
+      uploadFun = uploadOssFile;
     } else {
-      uploadFun = uploadFile
+      uploadFun = uploadFile;
     }
     uploadFun(formData)
       .then((res) => {
         console.log("up", res);
         if (res.code === 200) {
-          const filePath = setFileUlr(uploadFileType, res?.data?.filePath)
+          const filePath = setFileUrl(uploadFileType, res?.data?.filePath);
           editorRef.current.$img2Url($file.name, filePath);
         }
       })
@@ -164,7 +165,7 @@ const AddArtile = () => {
         ref={formRef}
         labelCol={{ span: 2 }}
       >
-        <Form.Item label="图片上传类型">
+        <Form.Item label="Image Upload Type">
           <Select
             defaultValue={uploadFileType}
             options={fileUploadTypeOptions}
@@ -173,19 +174,19 @@ const AddArtile = () => {
         </Form.Item>
 
         <Form.Item
-          label="文章标题"
+          label="Article Title"
           name="title"
           rules={[
             {
               required: true,
-              message: "请输入文章标题",
+              message: "Please enter the article title",
             },
           ]}
         >
           <Input />
         </Form.Item>
 
-        <Form.Item label="文章标签" name={"selectedTags"}>
+        <Form.Item label="Article Tags" name={"selectedTags"}>
           <Checkbox.Group>
             {tags.map((tag) => (
               <Checkbox key={tag._id} value={tag.name}>
@@ -195,20 +196,20 @@ const AddArtile = () => {
           </Checkbox.Group>
         </Form.Item>
 
-        <Form.Item label="是否公开" name={"private"}>
+        <Form.Item label="Is Public" name={"private"}>
           <Radio.Group>
-            <Radio value={0}>公开</Radio>
-            <Radio value={1}>私有</Radio>
+            <Radio value={0}>Public</Radio>
+            <Radio value={1}>Private</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="是否原创" name={"type"}>
+        <Form.Item label="Is Original" name={"type"}>
           <Radio.Group>
-            <Radio value={1}>原创</Radio>
-            <Radio value={2}>转载</Radio>
+            <Radio value={1}>Original</Radio>
+            <Radio value={2}>Repost</Radio>
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item label="文章内容" name={"markdown"}>
+        <Form.Item label="Article Content" name={"markdown"}>
           <Editor
             height="300px"
             toolbar={toolbar}
@@ -219,7 +220,7 @@ const AddArtile = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            保存
+            Save
           </Button>
         </Form.Item>
       </Form>
@@ -227,4 +228,4 @@ const AddArtile = () => {
   );
 };
 
-export default AddArtile;
+export default AddArticle;

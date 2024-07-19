@@ -2,9 +2,9 @@ import request from "@/utils/request";
 import ApiUrl from "@/config/api-url";
 
 /**
- * 更新密码
- * @param {*} params 
- * @returns 
+ * Update password
+ * @param {*} params
+ * @returns
  */
 export async function userUpdatePassword(params) {
   return request(`${ApiUrl.ManApiUrl}/user/update/password`, {
@@ -14,9 +14,9 @@ export async function userUpdatePassword(params) {
 }
 
 /**
- * 获取当前用户信息
- * @param {*} params 
- * @returns 
+ * Get current user information
+ * @param {*} params
+ * @returns
  */
 export async function queryCurrentUserInfo(params) {
   return request(`${ApiUrl.ManApiUrl}/user/info`, {
@@ -27,9 +27,9 @@ export async function queryCurrentUserInfo(params) {
 
 
 /**
- * 更新密码
- * @param {*} params 
- * @returns 
+ * Update password
+ * @param {*} params
+ * @returns
  */
  export async function queryUpdateUserInfo(params) {
   return request(`${ApiUrl.ManApiUrl}/user/update/info`, {

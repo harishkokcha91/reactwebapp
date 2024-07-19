@@ -38,7 +38,7 @@ export default function Home() {
                   <FilePptTwoTone />
                 </div>
                 <div className="bodyContent">
-                  <span style={{ marginRight: 10 }}> 文章数</span>
+                  <span style={{ marginRight: 10 }}> Number of articles</span>
                   <span style={{ color: "#eb2f96" }}>{topCount.article}</span>
                 </div>
               </div>
@@ -53,7 +53,7 @@ export default function Home() {
                   <FilePptTwoTone />
                 </div>
                 <div className="bodyContent">
-                  <span style={{ marginRight: 10 }}> 访问数</span>
+                  <span style={{ marginRight: 10 }}> Number of visits</span>
                   <span style={{ color: "#eb2f96" }}>{topCount.visitor}</span>
                 </div>
               </div>
@@ -68,7 +68,7 @@ export default function Home() {
                   <FilePptTwoTone />
                 </div>
                 <div className="bodyContent">
-                  <span style={{ marginRight: 10 }}> 评论数</span>
+                  <span style={{ marginRight: 10 }}> Number of comments</span>
                   <span style={{ color: "#eb2f96" }}>{topCount.comment}</span>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export default function Home() {
                   <FilePptTwoTone />
                 </div>
                 <div className="bodyContent">
-                  <span style={{ marginRight: 10 }}> 文件数</span>
+                  <span style={{ marginRight: 10 }}> Number of files</span>
                   <span style={{ color: "#eb2f96" }}>{topCount.file}</span>
                 </div>
               </div>

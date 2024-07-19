@@ -10,7 +10,7 @@ export async function uploadFile(formdata) {
   });
 }
 
-// 上传oss文件
+// Upload oss ​​file
 export async function uploadOssFile(formdata) {
   return request("/oss/upload", {
     method: "POST",
@@ -21,7 +21,7 @@ export async function uploadOssFile(formdata) {
   });
 }
 
-// 删除oss文件
+// Delete oss file
 export async function deleteOssFile(fileNames = '', fileId = '') {
   return request("/oss/delete", {
     method: "POST",
@@ -32,7 +32,7 @@ export async function deleteOssFile(fileNames = '', fileId = '') {
   });
 }
 
-// 删除文件
+// Delete Files
 export async function deleteFile(fileId = '') {
   return request("/file/delete", {
     method: "POST",

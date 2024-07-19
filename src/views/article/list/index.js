@@ -1,15 +1,15 @@
 import { deleteArticle, queryArticleList } from "@/services/article";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/utils/utils";
-import { Table, Button, Tag, message,Modal } from "antd";
+import { Table, Button, Tag, message, Modal } from "antd";
 import ApiUrl from "@/config/api-url";
 import { useNavigate } from "react-router-dom";
 
-const {confirm} = Modal
+const { confirm } = Modal;
 
 export default function ArticleList() {
   const navigate = useNavigate();
-  const [articleList, setArtilceList] = useState([]);
+  const [articleList, setArticleList] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [paginationConfig, setPaginationConfig] = useState({
@@ -18,14 +18,14 @@ export default function ArticleList() {
     showSizeChanger: true,
     showTotal: (total) => (
       <>
-        <p>共{total}条数据</p>
+        <p>Total {total} items</p>
       </>
     ),
   });
 
   const columns = [
     {
-      title: "文章标题",
+      title: "Article Title",
       dataIndex: "title",
       width: 200,
       ellipsis: true,
@@ -42,11 +42,11 @@ export default function ArticleList() {
       ),
     },
     {
-      title: "作者",
+      title: "Author",
       dataIndex: "author",
     },
     {
-      title: "标签",
+      title: "Tags",
       key: "tags",
       render: (text, record) => (
         <span>
@@ -57,22 +57,22 @@ export default function ArticleList() {
       ),
     },
     {
-      title: "阅读量",
+      title: "Views",
       dataIndex: "meta",
       render: (text) => <span>{text.views}</span>,
     },
     {
-      title: "创建时间",
+      title: "Created Time",
       dataIndex: "create_time",
       render: (text) => <span>{formatDate(text)}</span>,
     },
     {
-      title: "更新时间",
+      title: "Updated Time",
       dataIndex: "update_time",
       render: (text) => <span>{formatDate(text)}</span>,
     },
     {
-      title: "操作",
+      title: "Actions",
       width: 150,
       render: (text, record) => (
         <div>
@@ -82,14 +82,14 @@ export default function ArticleList() {
             size="small"
             style={{ marginRight: "8px" }}
           >
-            编辑
+            Edit
           </Button>
           <Button
             onClick={() => deleteArticleHandle(record.uuid)}
             type="danger"
             size="small"
           >
-            删除
+            Delete
           </Button>
         </div>
       ),
@@ -107,14 +107,14 @@ export default function ArticleList() {
       setTableLoading(false);
       const { data } = res;
       if (Array.isArray(data.data)) {
-        setArtilceList(data.data);
+        setArticleList(data.data);
         setTotal(data?.count || 0);
       }
     };
     getArticle();
   }, [paginationConfig]);
 
-  const getArticleHandle = async ()=>{
+  const getArticleHandle = async () => {
     setTableLoading(true);
     const params = {
       pageNo: paginationConfig.current,
@@ -124,10 +124,10 @@ export default function ArticleList() {
     setTableLoading(false);
     const { data } = res;
     if (Array.isArray(data.data)) {
-      setArtilceList(data.data);
+      setArticleList(data.data);
       setTotal(data?.count || 0);
     }
-  }
+  };
 
   const handleTableChange = (pagination) => {
     setPaginationConfig({
@@ -146,18 +146,18 @@ export default function ArticleList() {
 
   function deleteArticleHandle(uuid) {
     confirm({
-      title: "警告！",
-      content: "确定要删除此文章吗？",
-      okText: "确定",
+      title: "Warning!",
+      content: "Are you sure you want to delete this article?",
+      okText: "Yes",
       okType: "danger",
-      cancelText: "取消",
+      cancelText: "No",
       onOk() {
         deleteArticle(uuid).then((res) => {
           if (res.code === 200) {
-            message.success("删除成功！");
-            getArticleHandle()
+            message.success("Deleted successfully!");
+            getArticleHandle();
           } else {
-            message.error("删除失败");
+            message.error("Failed to delete");
           }
         });
       },
@@ -169,7 +169,7 @@ export default function ArticleList() {
     <div>
       <div className="layout-header">
         <Button onClick={gotoAddArticle} type="primary">
-          新增
+          Add New
         </Button>
       </div>
       <Table

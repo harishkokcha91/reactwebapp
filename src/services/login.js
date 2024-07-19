@@ -9,9 +9,9 @@ export async function userLogin(params) {
 }
 
 /**
- * 获取图形验证码
- * @param {*} params 
- * @returns 
+ * Get graphic verification code
+ * @param {*} params
+ * @returns
  */
 export async function fetchCaptcha(params) {
   return request(`${ApiUrl.ManApiUrl}/captcha`, {

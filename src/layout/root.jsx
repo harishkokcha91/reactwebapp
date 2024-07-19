@@ -11,26 +11,27 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "@/store/user";
 import { Avatar } from "antd";
 import { Spin } from "antd";
+
 const { Header, Sider, Content } = Layout;
 
 const items = [
-  { label: "首页", icon: <AppstoreOutlined />, key: "/", path: "/" }, // 菜单项务必填写 key
+  { label: "Home", icon: <AppstoreOutlined />, key: "/", path: "/" }, // The key must be filled in for the menu item
   {
-    label: "文章管理",
-    key: "artile",
+    label: "Article Management",
+    key: "article",
     icon: <AppstoreOutlined />,
     children: [
-      { label: "文章列表", key: "/article/list" },
-      { label: "文章标签", key: "/article/tags" },
+      { label: "Article List", key: "/article/list" },
+      { label: "Article Tags", key: "/article/tags" },
     ],
   },
   {
-    label: "站点管理",
-    key: "websit",
+    label: "Site Management",
+    key: "website",
     icon: <AppstoreOutlined />,
     children: [
-      { label: "文件管理", key: "/websit/file" },
-      { label: "访客统计", key: "/websit/vistor" },
+      { label: "File Management", key: "/website/file" },
+      { label: "Visitor Statistics", key: "/website/visitor" },
     ],
   },
 ];
@@ -41,28 +42,29 @@ const Root = () => {
   const navigate = useNavigate();
   const [menuItems, setMenuItems] = useState([]);
   const [menuOpenKeys, setMenuOpenKeys] = useState([]);
-  const initUserInfo = useUserStore((state)=>state.initUserInfo)
-  const userInfo = useUserStore((state)=> state.userInfo)
+  const initUserInfo = useUserStore((state) => state.initUserInfo);
+  const userInfo = useUserStore((state) => state.userInfo);
 
   const dropDownItems = [
     {
-      label: <Link to={'/user/password'}>修改密码</Link>,
+      label: <Link to={'/user/password'}>Change Password</Link>,
       key: '0',
     },
     {
-      label: <Link to={'/user/info'}>用户信息</Link>,
+      label: <Link to={'/user/info'}>User Information</Link>,
       key: '1',
     },
     {
-      label: <Link to={'/login'}>退出登录</Link>,
+      label: <Link to={'/login'}>Logout</Link>,
       key: '2',
     },
-  ]
-  
-  //初始化全局状态数据
-  useEffect(()=>{
-    initUserInfo()
-  },[initUserInfo])
+  ];
+
+  // Initialize global state data
+  useEffect(() => {
+    initUserInfo();
+  }, [initUserInfo]);
+
   useEffect(() => {
     setMenuItems(items);
   }, [menuItems]);
@@ -78,13 +80,12 @@ const Root = () => {
     navigate(key);
   };
 
-
   return (
     <Layout style={{ height: "100%" }}>
       <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
         <div className="sidebar-header">
           <AntDesignOutlined />
-          {!collapsed && <span className="admin-name">管理后台</span>}
+          {!collapsed && <span className="admin-name">Admin Dashboard</span>}
         </div>
         <Menu
           theme="light"
@@ -115,30 +116,29 @@ const Root = () => {
             )}
           </div>
           <div className="root-header-right">
-            <Avatar src={userInfo?.avatar_url} style={{marginRight:'6px'}} />
+            <Avatar src={userInfo?.avatar_url} style={{ marginRight: '6px' }} />
             <Dropdown
               menu={{
                 items: dropDownItems
               }}
-            > 
+            >
               <span className="user-name" style={{ marginRight: '8px' }}>
                 {userInfo?.nick_name}
               </span>
             </Dropdown>
 
             <div>
-              <SettingTwoTone/>
+              <SettingTwoTone />
             </div>
           </div>
 
         </Header>
         <Content
           style={{
-            // margin: "20px 10px",
             padding: 20,
           }}
         >
-          <React.Suspense fallback={ <Spin />}>
+          <React.Suspense fallback={<Spin />}>
             <Outlet />
           </React.Suspense>
         </Content>
@@ -146,4 +146,5 @@ const Root = () => {
     </Layout>
   );
 };
+
 export default Root;

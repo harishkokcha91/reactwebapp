@@ -11,7 +11,7 @@ function VisitorTrendingChart() {
   useEffect(() => {
     const defaultOptions = {
       grid: {
-        // 直角坐标系内绘图网格
+      // Drawing grid in Cartesian coordinate system
         left: '5%',
         right: '5%',
         top: '5%',
@@ -22,17 +22,17 @@ function VisitorTrendingChart() {
         show: true,
       },
       legend: {
-        // 图例
-        show: false, // 是否展示图例
-        bottom: 0, // 0 为展示到下面
-        data: [], // 图例名称item
+       // Legend
+       show: false, // Whether to display the legend
+       bottom: 0, // 0 means display to the bottom
+       data: [], // legend name item
         itemWidth: 8,
         itemHeight: 8,
         textStyle: {
           color: 'rgba(171, 193, 241, 1)',
           fontSize: '14px',
         },
-        itemGap: 46, // 图例每项之间的间隔
+        itemGap: 46, // The interval between each item in the legend
       },
     }
     const chart = echarts.init(chartRef.current);
@@ -81,7 +81,7 @@ function VisitorTrendingChart() {
   },[])
 
   return (
-    <Card title="趋势分析">
+    <Card title="trend analysis">
       <div ref={chartRef} style={{ width: "100%", height: "300px" }}></div>
     </Card>
   );

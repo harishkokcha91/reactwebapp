@@ -12,8 +12,8 @@ export default function Login() {
 
   useEffect(() => {
     async function getCaptcha() {
-      const res = await fetchCaptcha()
-      setCaptchaUrl(res)
+      // const res = await fetchCaptcha()
+      // setCaptchaUrl(res)
     }
     getCaptcha()
   }, [])
@@ -34,8 +34,8 @@ export default function Login() {
   };
 
   const refreshCaptcha = async () => {
-    const res = await fetchCaptcha()
-    setCaptchaUrl(res)
+    // const res = await fetchCaptcha()
+    // setCaptchaUrl(res)
   }
 
   const formItemLayout = {
@@ -47,13 +47,12 @@ export default function Login() {
 
   return (
     <>
-
       <Row align={"center"}>
         <Col md={24} className={styles.topTitle}>
           <h3 className={styles.title}>
             Admin
           </h3>
-          <p className={styles.titleSub}>最好用的管理后台</p>
+          <p className={styles.titleSub}>The best management backend</p>
         </Col>
         <Col md={6} xs={24}>
           <Form
@@ -71,7 +70,7 @@ export default function Login() {
                 },
               ]}
             >
-              <Input placeholder="用户名" />
+              <Input placeholder="username" />
             </Form.Item>
 
             <Form.Item
@@ -82,7 +81,7 @@ export default function Login() {
                 },
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="密码" />
+              <Input.Password prefix={<LockOutlined />} placeholder="password" />
             </Form.Item>
 
             <Form.Item
@@ -93,7 +92,7 @@ export default function Login() {
                 },
               ]}
             >
-              <Input placeholder="验证码" />
+              <Input placeholder="Verification code" />
             </Form.Item>
             <Form.Item>
               <div onClick={refreshCaptcha}>
@@ -104,7 +103,7 @@ export default function Login() {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                登录
+              Log in
               </Button>
             </Form.Item>
           </Form>

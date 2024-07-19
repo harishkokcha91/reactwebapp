@@ -32,7 +32,7 @@ export const routes = [
         element: <Article />,
         meta: {
           roles: ["admin"],
-          title: "文章管理",
+          title: "Article Management",
           key: "article",
         },
       },
@@ -41,7 +41,7 @@ export const routes = [
         element: <ArticleList />,
         meta: {
           roles: ["admin"],
-          title: "文章列表",
+          title: "Article list",
           key: "/article/list",
         },
       },
@@ -50,7 +50,7 @@ export const routes = [
         element: <Tags />,
         meta: {
           roles: ["admin"],
-          title: "文章标签",
+          title: "article tag",
           key: "/article/tags",
         },
       },
@@ -59,7 +59,7 @@ export const routes = [
         element: <AddArtile />,
         meta: {
           roles: ["admin"],
-          title: "添加文章",
+          title: "Add article",
           key: "/article/add",
         },
       },
@@ -68,7 +68,7 @@ export const routes = [
         element: <FileAdmin />,
         meta: {
           roles: ["admin"],
-          title: "文件管理",
+          title: "File management",
           key: "/websit/file",
         },
       },
@@ -77,7 +77,7 @@ export const routes = [
         element: <Visitor />,
         meta: {
           roles: ["admin"],
-          title: "访客统计",
+          title: "Visitor statistics",
           key: "/websit/vistor",
         },
       },
@@ -86,7 +86,7 @@ export const routes = [
         element: <Password />,
         meta: {
           roles: ["admin"],
-          title: "修改密码",
+          title: "change Password",
           key: "/user/password",
         },
       },
@@ -95,7 +95,7 @@ export const routes = [
         element: <UserInfo />,
         meta: {
           roles: ["admin"],
-          title: "用户信息",
+          title: "User Info",
           key: '/user/info'
         }
       }
@@ -106,7 +106,7 @@ export const routes = [
     element: <Login />,
     meta: {
       roles: [],
-      title: "登录",
+      title: "Log In",
       key: "login",
     },
   },
@@ -115,7 +115,7 @@ export const routes = [
     element: <NotFound />,
     meta: {
       roles: [],
-      title: "404页面",
+      title: "404 page",
       key: "404",
     },
   },

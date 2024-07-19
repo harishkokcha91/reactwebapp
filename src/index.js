@@ -5,13 +5,13 @@ import "./index.css";
 import "./styles/app.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import zhCN from "antd/locale/zh_CN";
+import enUS from "antd/locale/en_US";
 import { ConfigProvider } from "antd";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={enUS}>
       <App />
     </ConfigProvider>
   </React.StrictMode>

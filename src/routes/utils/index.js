@@ -1,7 +1,7 @@
 /**
- * @description 递归查询对应的路由
- * @param {String} path 当前访问地址
- * @param {Array} routes 路由列表
+* @description Recursively query the corresponding route
+ * @param {String} path current access address
+ * @param {Array} routes routing list
  * @returns array
  */
 export const searchRoute = (path, routes = []) => {

@@ -13,7 +13,7 @@ const NotFound = () => {
 			subTitle="Sorry, the page you visited does not exist."
 			extra={
 				<Button type="primary" onClick={goHome}>
-					返回首页
+					Return to home page
 				</Button>
 			}
 		/>

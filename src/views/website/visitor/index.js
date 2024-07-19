@@ -11,7 +11,7 @@ const formatBrowserAgent = agent => {
     const ua = parser(agent);
     return `${ua.browser.name}-${ua.browser.major}  ${ua.os.name}`;
   }
-    return '未知';
+    return 'unknown';
 }
 
 export default function Visitor() {
@@ -24,22 +24,22 @@ export default function Visitor() {
     showSizeChanger: true,
     showTotal: (total) => (
       <>
-        <p>共{total}条数据</p>
+        <p>Total {total}'[data]'</p>
       </>
     ),
   });
 
   const columns = [
     {
-      title: '用户IP',
+      title: 'User IP',
       dataIndex: 'ip',
     },
     {
-      title: '用户区域',
+      title: 'user area',
       dataIndex: 'address',
     },
     {
-      title: '访问时间',
+      title: 'interview time',
       dataIndex: 'browse_time',
       render: text => (
         <span>
@@ -48,7 +48,7 @@ export default function Visitor() {
       ),
     },
     {
-      title: '系统信息',
+      title: 'system message',
       dataIndex: 'user_agent',
       render: text => <span>{formatBrowserAgent(text)}</span>,
     },

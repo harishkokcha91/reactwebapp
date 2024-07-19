@@ -121,7 +121,7 @@ const Tags = () => {
         />
       ) : (
         <Tag style={tagPlusStyle} onClick={showInput}>
-          <PlusOutlined /> 新标签
+          <PlusOutlined /> new tab
         </Tag>
       )}
     </Space>
