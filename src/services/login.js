@@ -2,7 +2,8 @@ import request from "@/utils/request";
 import ApiUrl from "@/config/api-url";
 
 export async function userLogin(params) {
-  return request(`${ApiUrl.ManApiUrl}/auth/login`, {
+  return request(`${ApiUrl.ManApiUrl}/api/auth/login `, {
+    origin: "",
     method: "POST",
     data: params,
   });
