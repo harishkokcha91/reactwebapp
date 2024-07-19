@@ -34,8 +34,8 @@ export default function Login() {
   };
 
   const refreshCaptcha = async () => {
-    // const res = await fetchCaptcha()
-    // setCaptchaUrl(res)
+    const res = await fetchCaptcha()
+    setCaptchaUrl(res)
   }
 
   const formItemLayout = {
@@ -63,7 +63,7 @@ export default function Login() {
             style={{ padding: "50px 20px" }}
           >
             <Form.Item
-              name="username"
+              name="email"
               rules={[
                 {
                   required: true,
@@ -83,24 +83,6 @@ export default function Login() {
             >
               <Input.Password prefix={<LockOutlined />} placeholder="password" />
             </Form.Item>
-
-            <Form.Item
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Verification code" />
-            </Form.Item>
-            <Form.Item>
-              <div onClick={refreshCaptcha}>
-                <span dangerouslySetInnerHTML={{ __html: captchaUrl }}></span>
-              </div>
-
-            </Form.Item>
-
             <Form.Item>
               <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
               Log in
